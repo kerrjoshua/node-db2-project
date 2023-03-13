@@ -1,5 +1,6 @@
 const Cars = require('./cars-model')
 const db = require('../../data/db-config')
+const vinVal = require('vin-validator')
 
 const checkCarId = (req, res, next) => {
   Cars.getById(req.params.id)
@@ -33,8 +34,12 @@ const checkCarPayload = (req, res, next) => {
 }
 
 const checkVinNumberValid = (req, res, next) => {
-  console.log('checkVinNumberValid')
-  next()
+  const checkedVin = vinVal.validate(req.body.vin)
+  if (!checkedVin) {
+    next({status: 400, message: `vin ${req.body.vin} is invalid`})
+  } else {
+    next()
+  }
 }
 
 const checkVinNumberUnique = async (req, res, next) => {
