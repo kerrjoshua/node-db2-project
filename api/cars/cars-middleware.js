@@ -1,4 +1,5 @@
 const Cars = require('./cars-model')
+const db = require('../../data/db-config')
 
 const checkCarId = (req, res, next) => {
   Cars.getById(req.params.id)
@@ -36,9 +37,21 @@ const checkVinNumberValid = (req, res, next) => {
   next()
 }
 
-const checkVinNumberUnique = (req, res, next) => {
-  console.log('checkVinNumberUnique')
-  next()
+const checkVinNumberUnique = async (req, res, next) => {
+  try{
+    const existing = await db('cars')
+      .where('vin', req.body.vin).first()
+  
+    if (existing) {
+      next({status: 400, message: `vin ${req.body.vin} already exists`})
+    } else {
+      next()
+    }
+
+  }
+  catch (err) {
+    next(err)
+  }
 }
 
 module.exports = {
