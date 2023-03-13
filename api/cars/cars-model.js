@@ -1,11 +1,11 @@
-const getAll = () => {
-  // DO YOUR MAGIC
+exports.getAll = () => {
+  console.log('getAll')
 }
 
-const getById = () => {
-  // DO YOUR MAGIC
+exports.getById = () => {
+  console.log('getById')
 }
 
-const create = () => {
-  // DO YOUR MAGIC
+exports.create = () => {
+  console.log('create')
 }
