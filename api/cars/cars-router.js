@@ -12,10 +12,9 @@ router.get('/', async (req, res, next) => {
         next(err)
     }
 })
-router.get('/:id', md.checkCarId,   async (req, res, next) => {
+router.get('/:id', md.checkCarId, async (req, res, next) => {
     try { 
-        res.json('get car by id')
-        
+        res.json(req.car)      
 
     } catch (err) {
         next(err)

@@ -5,8 +5,8 @@ exports.getAll =  () => {
   return db('cars')
 }
 
-exports.getById = () => {
-  console.log('getById')
+exports.getById = (id) => {
+  return db('cars').where('id',id).first()
 }
 
 exports.create = () => {

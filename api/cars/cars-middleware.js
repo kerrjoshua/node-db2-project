@@ -1,6 +1,19 @@
+const Cars = require('./cars-model')
+
 const checkCarId = (req, res, next) => {
-  console.log('checkCarId')
-  next()
+  Cars.getById(req.params.id)
+    .then( car => {
+      if (car !== undefined) {
+        req.car = car
+        next()
+      }
+      else {
+        res.status(404).json({
+          message: `car with id ${req.params.id} is not found`
+        })
+      }
+    })
+    .catch(next)
 }
 
 const checkCarPayload = (req, res, next) => {
