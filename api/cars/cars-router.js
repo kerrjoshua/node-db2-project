@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const md = require('./cars-middleware')
+const Cars = require('./cars-model')
 
 router.get('/', async (req, res, next) => {
     try { 
-        res.json('get cars')
+        const cars = await Cars.getAll()
+        res.json(cars)
         
     } catch (err) {
         next(err)

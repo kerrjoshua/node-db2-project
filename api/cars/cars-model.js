@@ -1,5 +1,8 @@
-exports.getAll = () => {
-  console.log('getAll')
+
+const db = require('../../data/db-config')
+
+exports.getAll =  () => {
+  return db('cars')
 }
 
 exports.getById = () => {
