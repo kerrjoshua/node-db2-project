@@ -9,6 +9,6 @@ exports.getById = (id) => {
   return db('cars').where('id',id).first()
 }
 
-exports.create = () => {
-  console.log('create')
+exports.create = (carData) => {
+  return db('cars').insert(carData)
 }

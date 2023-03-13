@@ -12,17 +12,16 @@ router.get('/', async (req, res, next) => {
         next(err)
     }
 })
-router.get('/:id', md.checkCarId, async (req, res, next) => {
-    try { 
-        res.json(req.car)      
-
-    } catch (err) {
-        next(err)
-    }
+router.get('/:id', md.checkCarId, async (req, res) => {
+        res.json(req.car)   
+    
 })
 router.post('/', md.checkCarPayload, md.checkVinNumberValid, md.checkVinNumberUnique, async (req, res, next) => {
     try { 
-        res.json('post car')
+        const car = req.body
+        const [id] = await Cars.create(req.body)
+        car.id = id
+        res.json(car)
         
 
     } catch (err) {
