@@ -21,8 +21,7 @@ router.post('/', md.checkCarPayload, md.checkVinNumberValid, md.checkVinNumberUn
         const car = req.body
         const [id] = await Cars.create(req.body)
         car.id = id
-        res.json(car)
-        
+        res.json(car)        
 
     } catch (err) {
         next(err)

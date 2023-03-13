@@ -2,7 +2,7 @@ const Cars = require('./cars-model')
 
 const checkCarId = (req, res, next) => {
   Cars.getById(req.params.id)
-    .then( car => {
+    .then(car => {
       if (car !== undefined) {
         req.car = car
         next()
@@ -17,8 +17,18 @@ const checkCarId = (req, res, next) => {
 }
 
 const checkCarPayload = (req, res, next) => {
-  console.log('checkCarPayload')
-  next()
+  const { vin, make, model, mileage } = req.body
+  const required = { vin: vin, make: make, model: model, mileage: mileage };
+  let missing;
+  for (let key in required) {
+    if (!required[key]) {
+      missing = key
+    } 
+  }
+  if (missing) {    
+    next({ status: 400, message: `${missing} is missing` })
+  }
+  else next()
 }
 
 const checkVinNumberValid = (req, res, next) => {
